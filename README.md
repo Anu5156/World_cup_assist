@@ -104,6 +104,7 @@ worldcup-assist/
 │   └── telemetry.js            # Pure side-effect-free telemetry & queue calculations
 ├── tests/                      # Automated test suite
 │   ├── conftest.py             # Shared fixtures and test configuration
+│   └── web/                    # Frontend unit tests
 │   ├── eval_cases.yaml         # 20 golden behavioral evaluation cases
 │   ├── test_api.py             # E2E API tests (auth, headers, rate limits, async SSE)
 │   ├── test_assistant.py       # Prompt building correctness & RecordingEngine mock

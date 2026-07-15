@@ -17,7 +17,7 @@ import {
   nodeCongestClass,
   computeQueuePredictions,
   computeTelemetry,
-} from "../../web/telemetry.js";
+} from "../web/telemetry.js";
 
 // ── Fixture ────────────────────────────────────────────────────────────────────
 
