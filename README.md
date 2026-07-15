@@ -85,8 +85,7 @@ The system uses a robust, lightweight pipeline built on FastAPI (backend) and Va
 
 ```text
 worldcup-assist/
-├── .github/workflows/ci.yml    # GitHub Actions Workflow (Python + JS parallel jobs)
-├── src/stadium_assistant/      # Backend Python Application Package
+├── src/stadium_assistant/      # Backend Python application package
 │   ├── __init__.py
 │   ├── app.py                  # FastAPI Application Routes, Middleware & SSE Streams
 │   ├── assistant.py            # Orchestrator (decision router, prompt construction)
@@ -115,9 +114,10 @@ worldcup-assist/
 │   ├── test_security.py        # Fail-closed authentication & leftmost proxy IP check
 │   └── web/
 │       └── telemetry.test.js   # Vitest unit tests for telemetry.js computations
-├── pyproject.toml              # Pytest, Pytest-Cov (fail-under=80%), setuptools package config
-├── package.json                # ESLint, Vitest, and Axe-core configurations
-└── eslint.config.js            # Flat ESLint linter configuration
+├── pyproject.toml              # Python packaging and test configuration
+├── requirements.txt            # Python runtime dependencies
+├── package.json                # Frontend test and accessibility tooling
+└── run.py                      # Application entry point
 ```
 
 ---
