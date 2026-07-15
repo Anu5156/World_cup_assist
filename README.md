@@ -81,12 +81,13 @@ The system uses a robust, lightweight pipeline built on FastAPI (backend) and Va
 
 ---
 
-## 📁 Repository Directory Structure
+## 📁 Repository Structure
 
 ```text
 worldcup-assist/
-├── src/stadium_assistant/      # Backend Python application package
-│   ├── __init__.py
+├── src/                        # Backend Python application package
+│   └── stadium_assistant/
+│       ├── __init__.py
 │   ├── app.py                  # FastAPI Application Routes, Middleware & SSE Streams
 │   ├── assistant.py            # Orchestrator (decision router, prompt construction)
 │   ├── cache.py                # Bounded TTL Response Cache
@@ -96,13 +97,13 @@ worldcup-assist/
 │   ├── i18n.py                 # Multi-language normalization helpers
 │   ├── knowledge.py            # Venue Static Facts & Dynamic Telemetry Retrieval
 │   └── llm.py                  # LLM engines (Anthropic cloud client vs Offline fallback)
-├── web/                        # Frontend Single-Page App
-│   ├── index.html              # HTML structure (screen-reader accessible, lang="en")
+├── web/                        # Frontend single-page app
+│   ├── index.html              # Accessible HTML entry point
 │   ├── style.css               # Vanilla CSS variables, glassmorphism, responsive styles
 │   ├── app.js                  # Frontend UI, DOM updates, SSE listeners, mic animation
 │   └── telemetry.js            # Pure side-effect-free telemetry & queue calculations
-├── tests/                      # Full Test Suite
-│   ├── conftest.py             # Shared fixtures and settings overrides
+├── tests/                      # Automated test suite
+│   ├── conftest.py             # Shared fixtures and test configuration
 │   ├── eval_cases.yaml         # 20 golden behavioral evaluation cases
 │   ├── test_api.py             # E2E API tests (auth, headers, rate limits, async SSE)
 │   ├── test_assistant.py       # Prompt building correctness & RecordingEngine mock
