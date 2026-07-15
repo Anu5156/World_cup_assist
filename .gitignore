@@ -26,4 +26,6 @@ htmlcov/
 .vscode/
 .idea/
 docs/
+ruff.toml
+eslint.config.js
 .txt
