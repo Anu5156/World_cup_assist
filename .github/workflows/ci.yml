@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # ── Python: lint + tests + coverage ────────────────────────────────────────
+  python:
+    name: Python tests & coverage
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install \
+          ruff \
+          pytest pytest-cov \
+          pyyaml \
+          fastapi uvicorn pydantic httpx anyio
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -e ".[dev]" 2>/dev/null || true
+
+    - name: Ruff lint
+      run: ruff check src/ tests/
+
+    - name: Pytest with coverage
+      run: |
+        pytest \
+          --cov=stadium_assistant \
+          --cov-report=term-missing \
+          --cov-report=xml:coverage.xml \
+          --cov-fail-under=80
+      env:
+        # Ensure no real API key leaks into the test run.
+        ANTHROPIC_API_KEY: ""
+        OPS_API_KEY: "testkey"
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-xml
+        path: coverage.xml
+
+  # ── JavaScript: lint + vitest ───────────────────────────────────────────────
+  javascript:
+    name: JS lint & vitest
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install Node dependencies
+      run: npm ci
+
+    - name: ESLint
+      run: npx eslint web/ --max-warnings=0
+
+    - name: Vitest
+      run: npm test

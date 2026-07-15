@@ -1,0 +1,17 @@
+{
+  "name": "worldcup-assist",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test":      "vitest run",
+    "test:watch": "vitest",
+    "lint":      "eslint web/",
+    "a11y":      "axe http://localhost:8000 --save docs/a11y-report.json"
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.10.2",
+    "eslint":        "^9.16.0",
+    "vitest":        "^2.0.0"
+  }
+}

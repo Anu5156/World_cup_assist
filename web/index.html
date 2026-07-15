@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AI-powered accessible navigation and operations assistant for FIFA World Cup 2026 venues. Multilingual, context-aware guidance for fans, staff, and volunteers." />
+  <title>FIFA World Cup 2026 — Fan Assistant & Operations Portal</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a class="skip-link" href="#main-content" id="skip-link-btn" data-i18n="skipLink">Skip to main content</a>
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <!-- Stadium ambient background -->
+  <div class="stadium-bg" aria-hidden="true">
+    <div class="stadium-blur"></div>
+    <div class="ambient-orb orb-teal"></div>
+    <div class="ambient-orb orb-purple"></div>
+  </div>
+
+  <!-- ═══ LEFT ICON SIDEBAR ═══ -->
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 36 36" fill="none" width="28" height="28">
+        <circle cx="18" cy="18" r="16" stroke="url(#sg)" stroke-width="2"/>
+        <path d="M18 7 L22 16 L31 18 L22 20 L18 29 L14 20 L5 18 L14 16 Z" fill="url(#sg)" opacity="0.95"/>
+        <defs>
+          <linearGradient id="sg" x1="0" y1="0" x2="36" y2="36">
+            <stop offset="0%" stop-color="#22d3ee"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-icon active" id="nav-dashboard" title="Dashboard" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </button>
+      <button class="nav-icon" id="nav-map" title="Venue Map" aria-label="Venue Map">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
+        </svg>
+      </button>
+      <button class="nav-icon" id="nav-stats" title="Live Stats" aria-label="Live Stats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </button>
+      <button class="nav-icon" id="nav-alerts" title="Alerts" aria-label="Alerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <button class="nav-icon" id="nav-settings" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-status" id="llm-indicator" aria-live="polite">
+        <span class="pulse-dot" id="llm-dot"></span>
+      </div>
+      <button class="nav-icon" title="Accessibility Settings" aria-label="Accessibility Settings" id="acc-toggle-btn" data-i18n-aria-label="accSettings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN WRAPPER ═══ -->
+  <div class="app-wrapper">
+
+    <!-- ═══ TOP HEADER BAR ═══ -->
+    <header class="top-header" id="app-header">
+      <div class="header-left">
+        <h1 class="header-brand" id="main-heading" data-i18n="title">⚽ StadiumAI</h1>
+        <nav class="header-nav" aria-label="Page navigation">
+          <a class="h-nav-link active" href="#" data-i18n="headerDashboard">Dashboard</a>
+          <a class="h-nav-link" href="#" data-i18n="headerMatchStats">Match Stats</a>
+          <a class="h-nav-link" href="#" data-i18n="headerVenueMap">Venue Map</a>
+          <a class="h-nav-link" href="#" data-i18n="headerAssistant">Assistant</a>
+          <a class="h-nav-link" href="#" data-i18n="headerEvents">Events</a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="language-selector-wrapper">
+          <span aria-hidden="true">🌐</span>
+          <label for="language" class="sr-only" data-i18n="languageLabel">Language</label>
+          <select id="language" aria-label="Language">
+            <option value="en">English</option>
+          </select>
+        </div>
+        <span id="llm-status-text" class="header-status-text">Connecting…</span>
+        <div class="header-avatar" title="Fan / Staff">
+          <span>F</span>
+        </div>
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main id="main-content" class="main-grid">
+
+      <!-- ══ LIVE MATCH STATS BANNER ══ -->
+      <section class="glass-card match-stats-card" aria-labelledby="match-stats-heading">
+        <div class="card-head-row">
+          <h2 id="match-stats-heading" class="card-label" data-i18n="liveStatus">REAL-TIME VENUE STATUS</h2>
+          <div class="fifa-badge">LIVE</div>
+          <span class="card-more">···</span>
+        </div>
+        <div class="match-body">
+          <div class="match-team">
+            <div class="team-icon">🏟️</div>
+            <div class="team-name">LEVI'S STADIUM</div>
+          </div>
+          <div class="match-score-block">
+            <div class="match-halftime" data-i18n="matchDay">Match Day: 14</div>
+            <div class="match-score">
+              <span id="stat-attendance">54,321</span>
+              <span class="score-sep" data-i18n="fansLabel">Fans</span>
+            </div>
+            <div class="match-time">90'</div>
+          </div>
+          <div class="match-team right">
+            <div class="team-icon">🌍</div>
+            <div class="team-name">FIFA WC 2026</div>
+          </div>
+        </div>
+        <div class="match-metrics">
+          <div class="metric-item">
+            <div class="metric-label" data-i18n="gateAFlow">GATE A FLOW</div>
+            <div class="metric-value teal" id="stat-gateA">LOW</div>
+            <div class="metric-bar"><div class="metric-fill green" style="width:30%"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label" data-i18n="gateBFlow">GATE B FLOW</div>
+            <div class="metric-value amber" id="stat-gateB">MED</div>
+            <div class="metric-bar"><div class="metric-fill amber" style="width:60%"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label" data-i18n="transitStatus">TRANSIT STATUS</div>
+            <div class="metric-value teal" id="stat-transit">ON TIME</div>
+            <span id="tel-transit-summary" class="sr-only" aria-live="polite">On Time</span>
+            <div class="metric-bar"><div class="metric-fill green" style="width:85%"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label" data-i18n="noiseLevel">NOISE LEVEL</div>
+            <div class="metric-value" id="stat-noise">88dB</div>
+            <div class="metric-bar"><div class="metric-fill purple" style="width:70%"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label" data-i18n="sensoryRoom">SENSORY ROOM</div>
+            <div class="metric-value teal" id="stat-sensory">OPEN</div>
+            <span id="tel-sensory-summary" class="sr-only" aria-live="polite">Open</span>
+            <div class="metric-bar"><div class="metric-fill green" style="width:20%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ LIVE VENUE MAP ══ -->
+      <section class="glass-card map-card" aria-labelledby="venue-map-heading">
+        <div class="card-head-row">
+          <h2 id="venue-map-heading" class="card-label" data-i18n="liveMap">LIVE VENUE MAP</h2>
+          <div class="map-tabs">
+            <button class="map-tab active" data-i18n="mapLevels">LEVELS</button>
+            <button class="map-tab" data-i18n="mapSection">SECTION</button>
+            <button class="map-tab" data-i18n="mapEntrance">ENTRANCE</button>
+          </div>
+          <label class="heatmap-label">
+            <input type="checkbox" id="heatmap-toggle" />
+            <span class="heatmap-toggle-text" data-i18n="heatmap">Heatmap</span>
+          </label>
+               <!-- Interactive Venue Map SVG -->
+        <div class="map-svg-wrap" style="position:relative;">
+          <!-- Floating tooltip -->
+          <div id="map-tooltip" class="map-tooltip">
+            <div class="tooltip-header">
+              <span class="tooltip-icon" id="tooltip-icon">🟢</span>
+              <span class="tooltip-title" id="tooltip-title">Zone</span>
+            </div>
+            <div class="tooltip-status-row">
+              <span class="tooltip-status-label" id="tooltip-status-label">Status:</span>
+              <span class="tooltip-status-val" id="tooltip-status"></span>
+            </div>
+            <div class="tooltip-hint" id="tooltip-hint">Click to ask about this area</div>
+          </div>
+
+          <svg id="stadium-svg" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg" aria-labelledby="stadium-svg-title" focusable="false">
+            <title id="stadium-svg-title">Stadium layout map — click a gate or facility node to ask a question</title>
+            <defs>
+              <radialGradient id="pitchGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(34,197,94,0.3)"/>
+                <stop offset="100%" stop-color="rgba(34,197,94,0.04)"/>
+              </radialGradient>
+              <radialGradient id="stadiumBg" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(8,20,48,0.9)"/>
+                <stop offset="100%" stop-color="rgba(2,8,24,0.98)"/>
+              </radialGradient>
+              <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- Outer glow ring -->
+            <ellipse cx="210" cy="192" rx="197" ry="174" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1.5"/>
+
+            <!-- Main stadium body -->
+            <ellipse cx="210" cy="192" rx="185" ry="162" fill="url(#stadiumBg)" stroke="rgba(34,211,238,0.25)" stroke-width="2"/>
+
+            <!-- Stand tiers -->
+            <!-- North stand -->
+            <path d="M88 58 Q210 12 332 58 Q295 78 210 84 Q125 78 88 58Z"
+                  fill="rgba(34,211,238,0.07)" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+            <!-- South stand -->
+            <path d="M88 326 Q210 372 332 326 Q295 306 210 300 Q125 306 88 326Z"
+                  fill="rgba(34,211,238,0.07)" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+            <!-- East stand -->
+            <path d="M378 80 Q408 192 378 304 Q362 274 358 192 Q362 110 378 80Z"
+                  fill="rgba(34,211,238,0.07)" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+            <!-- West stand -->
+            <path d="M42 80 Q12 192 42 304 Q58 274 62 192 Q58 110 42 80Z"
+                  fill="rgba(34,211,238,0.07)" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+
+            <!-- Section separator rings -->
+            <ellipse cx="210" cy="192" rx="155" ry="133" fill="none" stroke="rgba(34,211,238,0.1)" stroke-width="1" stroke-dasharray="5 7"/>
+            <ellipse cx="210" cy="192" rx="122" ry="103" fill="none" stroke="rgba(34,211,238,0.08)" stroke-width="1" stroke-dasharray="3 9"/>
+
+            <!-- Stand labels -->
+            <text x="210" y="27" text-anchor="middle" fill="rgba(148,163,184,0.55)" font-size="8.5" font-family="Inter,sans-serif" letter-spacing="2" data-i18n="northStand">NORTH STAND</text>
+            <text x="210" y="368" text-anchor="middle" fill="rgba(148,163,184,0.55)" font-size="8.5" font-family="Inter,sans-serif" letter-spacing="2" data-i18n="entrance">ENTRANCE</text>
+            <text x="16" y="192" text-anchor="middle" fill="rgba(148,163,184,0.5)" font-size="8" font-family="Inter,sans-serif" transform="rotate(-90 16 192)" letter-spacing="2" data-i18n="westStand">WEST STAND</text>
+            <text x="404" y="192" text-anchor="middle" fill="rgba(148,163,184,0.5)" font-size="8" font-family="Inter,sans-serif" transform="rotate(90 404 192)" letter-spacing="2" data-i18n="eastStand">EAST STAND</text>
+
+            <!-- Pitch -->
+            <ellipse cx="210" cy="192" rx="88" ry="76" fill="url(#pitchGrad)" stroke="rgba(34,197,94,0.45)" stroke-width="1.5"/>
+            <ellipse cx="210" cy="192" rx="74" ry="63" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <line x1="210" y1="116" x2="210" y2="268" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="210" cy="192" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="210" cy="192" r="3" fill="rgba(34,197,94,0.6)"/>
+            <!-- Goal areas -->
+            <rect x="187" y="116" width="46" height="20" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <rect x="187" y="248" width="46" height="20" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+            <!-- ═══ Gate Nodes ═══ -->
+            <!-- Gate A - North (top) -->
+            <g id="map-node-gateA" class="map-node low-congest" tabindex="0" role="button" aria-label="Gate A - Step-free accessible entrance">
+              <circle id="heatmap-circle-gateA" cx="210" cy="44" r="30" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <circle cx="210" cy="44" r="20" class="node-ring" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.8" aria-hidden="true"/>
+              <circle cx="210" cy="44" r="27" class="node-pulse-ring" fill="none" stroke="rgba(34,211,238,0.4)" stroke-width="1" aria-hidden="true"/>
+              <text x="210" y="49" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700" font-family="Inter,sans-serif" class="node-label" aria-hidden="true">A</text>
+            </g>
+
+            <!-- Gate B - East (right) -->
+            <g id="map-node-gateB" class="map-node low-congest" tabindex="0" role="button" aria-label="Gate B - East Entrance">
+              <circle id="heatmap-circle-gateB" cx="385" cy="192" r="30" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(251,191,36,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <circle cx="385" cy="192" r="20" class="node-ring" fill="rgba(251,191,36,0.12)" stroke="#fbbf24" stroke-width="1.8" aria-hidden="true"/>
+              <circle cx="385" cy="192" r="27" class="node-pulse-ring" fill="none" stroke="rgba(251,191,36,0.4)" stroke-width="1" aria-hidden="true"/>
+              <text x="385" y="197" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Inter,sans-serif" class="node-label" aria-hidden="true">B</text>
+            </g>
+
+            <!-- Gate C - South (bottom) -->
+            <g id="map-node-gateC" class="map-node low-congest" tabindex="0" role="button" aria-label="Gate C - South Entrance">
+              <circle id="heatmap-circle-gateC" cx="210" cy="340" r="30" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <circle cx="210" cy="340" r="20" class="node-ring" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.8" aria-hidden="true"/>
+              <circle cx="210" cy="340" r="27" class="node-pulse-ring" fill="none" stroke="rgba(34,211,238,0.4)" stroke-width="1" aria-hidden="true"/>
+              <text x="210" y="345" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700" font-family="Inter,sans-serif" class="node-label" aria-hidden="true">C</text>
+            </g>
+
+            <!-- Gate D - West (left) -->
+            <g id="map-node-gateD" class="map-node low-congest" tabindex="0" role="button" aria-label="Gate D - West Entrance">
+              <circle id="heatmap-circle-gateD" cx="35" cy="192" r="30" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <circle cx="35" cy="192" r="20" class="node-ring" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.8" aria-hidden="true"/>
+              <circle cx="35" cy="192" r="27" class="node-pulse-ring" fill="none" stroke="rgba(34,211,238,0.4)" stroke-width="1" aria-hidden="true"/>
+              <text x="35" y="197" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700" font-family="Inter,sans-serif" class="node-label" aria-hidden="true">D</text>
+            </g>
+
+            <!-- ═══ Facility Nodes ═══ -->
+            <!-- Section 108 - Accessible Restrooms (lower right) -->
+            <g id="map-node-sec108" class="map-node" tabindex="0" role="button" aria-label="Section 108 - Accessible Restrooms">
+              <circle id="heatmap-circle-sec108" cx="308" cy="272" r="22" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(139,92,246,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <rect x="278" y="258" width="60" height="26" rx="6" fill="rgba(139,92,246,0.18)" stroke="#8b5cf6" stroke-width="1.2" class="node-ring" aria-hidden="true"/>
+              <text x="308" y="275" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="600" font-family="Inter,sans-serif" aria-hidden="true">&#x267F; SEC 108</text>
+            </g>
+
+            <!-- Section 112 - Sensory Room (lower left) -->
+            <g id="map-node-sec112" class="map-node" tabindex="0" role="button" aria-label="Section 112 - Sensory Room">
+              <circle id="heatmap-circle-sec112" cx="112" cy="272" r="22" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <rect x="82" y="258" width="60" height="26" rx="6" fill="rgba(34,211,238,0.18)" stroke="#22d3ee" stroke-width="1.2" class="node-ring" aria-hidden="true"/>
+              <text x="112" y="275" text-anchor="middle" fill="#67e8f9" font-size="9" font-weight="600" font-family="Inter,sans-serif" aria-hidden="true">🧻 SEC 112</text>
+            </g>
+
+            <!-- Section 104 - First Aid (upper right) -->
+            <g id="map-node-sec104" class="map-node" tabindex="0" role="button" aria-label="Section 104 - First Aid">
+              <rect x="278" y="104" width="60" height="26" rx="6" fill="rgba(239,68,68,0.18)" stroke="#ef4444" stroke-width="1.2" class="node-ring" aria-hidden="true"/>
+              <text x="308" y="121" text-anchor="middle" fill="#fca5a5" font-size="9" font-weight="600" font-family="Inter,sans-serif" aria-hidden="true">➕ FIRST AID</text>
+            </g>
+
+            <!-- Section 118 - Family Room (upper left) -->
+            <g id="map-node-sec118" class="map-node" tabindex="0" role="button" aria-label="Section 118 - Family Room">
+              <rect x="82" y="104" width="60" height="26" rx="6" fill="rgba(34,197,94,0.18)" stroke="#22c55e" stroke-width="1.2" class="node-ring" aria-hidden="true"/>
+              <text x="112" y="121" text-anchor="middle" fill="#86efac" font-size="9" font-weight="600" font-family="Inter,sans-serif" aria-hidden="true">👨‍👧 FAMILY</text>
+            </g>
+
+            <!-- Transit Hub (bottom-center) -->
+            <g id="map-node-transit" class="map-node" tabindex="0" role="button" aria-label="Transit Hub">
+              <circle id="heatmap-circle-transit" cx="210" cy="302" r="22" class="heatmap-glow-circle low low-pulse" fill="none" stroke="rgba(251,191,36,0.5)" stroke-width="2" opacity="0" aria-hidden="true"/>
+              <rect x="168" y="288" width="84" height="26" rx="6" fill="rgba(251,191,36,0.15)" stroke="#fbbf24" stroke-width="1.2" class="node-ring" aria-hidden="true"/>
+              <text x="210" y="305" text-anchor="middle" fill="#fde68a" font-size="9" font-weight="600" font-family="Inter,sans-serif" aria-hidden="true">🚇 TRANSIT HUB</text>
+              <circle id="map-dot-transit" cx="248" cy="291" r="4" class="dot green" aria-hidden="true"/>
+              <text id="map-text-transit" x="252" y="319" fill="#fde68a" font-size="7" font-family="Inter,sans-serif" class="node-value ok" aria-hidden="true">On Time</text>
+            </g>
+
+            <!-- Water station (pitch center) -->
+            <g id="map-node-water" class="map-node" tabindex="0" role="button" aria-label="Water &amp; Recycling">
+              <circle cx="210" cy="192" r="10" fill="rgba(34,211,238,0.35)" stroke="#22d3ee" stroke-width="1.5" class="node-ring" aria-hidden="true"/>
+              <text x="210" y="196" text-anchor="middle" fill="#22d3ee" font-size="10" aria-hidden="true">💧</text>
+            </g>
+
+            <!-- Entrance markers -->
+            <circle cx="185" cy="358" r="5" fill="rgba(34,197,94,0.7)" stroke="#22c55e" stroke-width="1"/>
+            <circle cx="235" cy="358" r="5" fill="rgba(34,197,94,0.7)" stroke="#22c55e" stroke-width="1"/>
+          </svg>
+        </div>
+
+          <div class="map-legend">
+            <div class="legend-section">
+              <div class="legend-title">LIVE CROWD DENSITY</div>
+              <div class="density-bar">
+                <div class="density-gradient"></div>
+                <div class="density-labels"><span>High</span><span>Low</span></div>
+              </div>
+            </div>
+            <div class="legend-section">
+              <div class="legend-title">CURRENT CONGESTION</div>
+              <div class="congestion-item">
+                <span class="dot red"></span>
+                <span>Gate A: <span id="leg-gateA" class="cong-val">Low</span></span>
+              </div>
+              <div class="congestion-item">
+                <span class="dot amber"></span>
+                <span>Gate B: <span id="leg-gateB" class="cong-val amber-text">Medium</span></span>
+              </div>
+              <div class="congestion-item">
+                <span class="dot teal"></span>
+                <span>Transit: <span id="leg-transit" class="cong-val teal-text">On Time</span></span>
+              </div>
+            </div>
+            <div class="legend-section">
+              <div class="legend-title">EXITS</div>
+              <div class="exit-item"><span class="exit-icon purple">🏪</span> Concessions</div>
+              <div class="exit-item"><span class="exit-icon green">🚪</span> Exits</div>
+              <div class="exit-item"><span class="exit-icon red">➕</span> First Aid</div>
+              <div class="exit-item"><span class="exit-icon blue">🍺</span> Sensory Room</div>
+            </div>
+            <!-- Queue predictions widget -->
+            <div class="legend-section queue-widget">
+              <div class="legend-title">QUEUE PREDICTIONS</div>
+              <div class="queue-item">
+                <span class="queue-label">Accessible WC</span>
+                <div class="queue-bar-wrap"><div class="queue-bar-fill" id="q-wc" style="width:30%"></div></div>
+                <span class="queue-wait" id="q-wc-time">~5 min</span>
+              </div>
+              <div class="queue-item">
+                <span class="queue-label">Restroom</span>
+                <div class="queue-status-wrap"><div class="queue-status-fill green" id="queue-fill-restroom" style="width:15%"></div></div>
+                <span class="queue-wait" id="queue-val-restroom">2 mins</span>
+              </div>
+              <div class="queue-item">
+                <span class="queue-label">Sensory Room</span>
+                <div class="queue-status-wrap"><div class="queue-status-fill green" id="queue-fill-sensory" style="width:10%"></div></div>
+                <span class="queue-wait" id="queue-val-sensory">No Wait</span>
+              </div>
+              <div class="queue-item">
+                <span class="queue-label">Concessions</span>
+                <div class="queue-bar-wrap"><div class="queue-bar-fill amber-fill" id="q-con" style="width:55%"></div></div>
+                <span class="queue-wait" id="q-con-time">~12 min</span>
+              </div>
+              <div class="queue-item">
+                <span class="queue-label">Concessions (alt)</span>
+                <div class="queue-status-wrap"><div class="queue-status-fill yellow" id="queue-fill-concessions" style="width:55%"></div></div>
+                <span class="queue-wait" id="queue-val-concessions">~12 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert box -->
+        <div class="alert-box" id="active-alert-box" hidden>
+          <span class="alert-icon" aria-hidden="true">⚠️</span>
+          <div><strong id="alert-title">Active Alert:</strong><p id="alert-desc"></p></div>
+        </div>
+      </section>
+
+      <!-- ══ AI CHAT ASSISTANT ══ -->
+      <section class="glass-card chat-card" aria-labelledby="chat-heading">
+        <div class="card-head-row">
+          <div class="chat-bot-title">
+            <div class="bot-avatar">
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#star-g)" stroke="none"/>
+                <defs><linearGradient id="star-g" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div>
+              <h2 id="chat-heading" class="bot-name">StadiumBOT</h2>
+              <span class="bot-sub" id="bot-sub">How can I help you?</span>
+            </div>
+          </div>
+          <div class="chat-head-controls">
+            <div class="acc-mini-panel">
+              <button class="acc-mini-btn" id="acc-dyslexia-btn" aria-pressed="false" title="Dyslexia Font" data-i18n-title="dyslexiaFont">Aa</button>
+              <button class="acc-mini-btn" id="acc-text-btn" aria-pressed="false" title="Large Text" data-i18n-title="largeText">A+</button>
+              <button class="acc-mini-btn" id="acc-contrast-btn" aria-pressed="false" title="High Contrast" data-i18n-title="highContrast">◐</button>
+              <button class="acc-mini-btn" id="acc-motion-btn" aria-pressed="false" title="Reduce Motion" data-i18n-title="reduceMotion">⏸️</button>
+            </div>
+            <span class="card-more">···</span>
+          </div>
+        </div>
+        <div id="chatbot-title-label" class="sr-only" data-i18n="chatbotLabel">AI Chat Assistant</div>
+
+        <!-- Profile strip -->
+        <div class="profile-strip">
+          <div class="profile-field">
+            <label for="role" class="pf-label" id="role-label-text" data-i18n="roleLabel">I am a</label>
+            <select id="role" class="pf-select">
+              <option value="fan" data-i18n="roleFan">Fan</option>
+              <option value="wheelchair_user" data-i18n="roleWheelchair">Wheelchair User</option>
+              <option value="visually_impaired" data-i18n="roleVisual">Visually Impaired</option>
+              <option value="hearing_impaired" data-i18n="roleHearing">Hearing Impaired</option>
+              <option value="parent_with_stroller" data-i18n="roleStroller">Parent + Stroller</option>
+              <option value="staff" data-i18n="roleStaff">Staff</option>
+              <option value="volunteer" data-i18n="roleVolunteer">Volunteer</option>
+            </select>
+            <span id="current-role-badge" class="sr-only" aria-live="polite">Fan</span>
+          </div>
+          <div class="profile-field">
+            <label for="location" class="pf-label" id="loc-label-text" data-i18n="locationLabel">Location</label>
+            <input type="text" id="location" placeholder="e.g. Gate A, Sec 108" data-i18n-placeholder="locationPlaceholder" class="pf-input"/>
+          </div>
+          <div class="needs-row" role="group" aria-label="Accessibility needs" data-i18n-aria-label="accessibilityNeeds">
+            <label class="need-chip"><input type="checkbox" name="need" value="step_free"/> <span id="need-step-free" data-i18n="chipStepFree">Step-free</span></label>
+            <label class="need-chip"><input type="checkbox" name="need" value="quiet_route"/> <span id="need-quiet" data-i18n="chipQuiet">Quiet</span></label>
+            <label class="need-chip"><input type="checkbox" name="need" value="audio_descriptions"/> <span id="need-audio" data-i18n="chipAudio">Audio</span></label>
+          </div>
+        </div>
+
+        <!-- Quick chips -->
+        <div class="chips-row" role="group" aria-label="Quick queries" data-i18n-aria-label="quickQueries">
+          <button class="chip" data-query="Where is the nearest step-free entrance?" data-i18n="chipStepFreeQ">Step-free access</button>
+          <button class="chip" data-query="Where is the sensory quiet room?" data-i18n="chipSensoryQ">Sensory room</button>
+          <button class="chip" data-query="Where is the nearest first aid station?" data-i18n="chipFirstAidQ">First Aid</button>
+          <button class="chip" data-query="What is the transit status?" data-i18n="chipTransitQ">Transit info</button>
+        </div>
+
+        <!-- Chat history -->
+        <div id="chat-history" class="chat-history" role="log" aria-label="Chat messages" aria-live="polite"></div>
+
+        <!-- Status -->
+        <p id="status" class="chat-status" role="status"></p>
+
+        <!-- Meta info -->
+        <p id="meta" class="chat-meta" hidden aria-live="off"></p>
+
+        <!-- Input area -->
+        <form id="assist-form" class="chat-input-row" novalidate>
+          <div class="voice-wave-wrap" id="voice-wave-visualizer" aria-hidden="true">
+            <span class="wave-bar"></span><span class="wave-bar"></span>
+            <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+          </div>
+          <div class="input-language-row">
+            <label for="language-chat" class="sr-only">Language</label>
+          </div>
+          <div class="textarea-wrap">
+            <textarea id="message" placeholder="Ask about stats, food, facilities, accessibility…" data-i18n-placeholder="msgPlaceholder" rows="1" aria-label="Message" data-i18n-aria-label="msgAriaLabel" maxlength="500"></textarea>
+            <button type="button" id="mic-btn" class="mic-btn" aria-label="Start voice input" title="Voice input">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <rect x="9" y="2" width="6" height="11" rx="3"/>
+                <path d="M5 10c0 3.87 3.13 7 7 7s7-3.13 7-7"/>
+                <line x1="12" y1="19" x2="12" y2="22"/>
+                <line x1="8" y1="22" x2="16" y2="22"/>
+              </svg>
+            </button>
+          </div>
+          <button type="submit" id="submit-btn" class="send-btn" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- TTS toggle -->
+        <div class="tts-row">
+          <label class="tts-label">
+            <input type="checkbox" id="tts-toggle"/>
+            <span class="tts-text" id="tts-text">🔊 Read replies aloud</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ══ SIMULATOR PANEL (hidden by default) ══ -->
+      <article class="glass-card sim-card" id="simulator-panel" hidden aria-labelledby="sim-heading">
+        <header class="card-head-row">
+          <h3 id="sim-heading"><span aria-hidden="true">🔧</span> <span data-i18n="simTitle">Operations Simulator</span></h3>
+          <span class="sim-badge" data-i18n="simBadge">Staff Only</span>
+        </header>
+        <form id="simulator-form" class="sim-grid">
+          <div class="sim-col">
+            <h4 data-i18n="simGateCrowdFlow">Gate Crowd Flow</h4>
+            <div class="sim-row"><label for="sim-gateA">Gate A</label><select id="sim-gateA"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateB">Gate B</label><select id="sim-gateB"><option data-i18n="flowLow">Low</option><option selected data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateC">Gate C</label><select id="sim-gateC"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateD">Gate D</label><select id="sim-gateD"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
+          </div>
+          <div class="sim-col">
+            <h4 data-i18n="simElevators">Elevators</h4>
+            <div class="sim-row"><label for="sim-elevA">Gate A</label><select id="sim-elevA"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevB">Gate B</label><select id="sim-elevB"><option data-i18n="elevOnline">Online</option><option selected data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevC">Gate C</label><select id="sim-elevC"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevD">Gate D</label><select id="sim-elevD"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
+          </div>
+          <div class="sim-col">
+            <h4 data-i18n="simVenue">Venue</h4>
+            <div class="sim-row"><label for="sim-transit" data-i18n="simTransit">Transit</label><select id="sim-transit"><option data-i18n="transitOnTime">On Time</option><option selected data-i18n="transitMinorDelays">Minor Delays</option><option data-i18n="transitMajorDelays">Major Delays</option></select></div>
+            <div class="sim-row"><label for="sim-sensory" data-i18n="sensoryRoom">Sensory Room</label><select id="sim-sensory"><option data-i18n="sensoryOpen">Open</option><option data-i18n="sensoryNearCapacity">Near Capacity</option><option data-i18n="sensoryFull">Full</option></select></div>
+          </div>
+          <div class="sim-full">
+            <label for="sim-alert" data-i18n="simAlertLabel">Alert message (optional)</label>
+            <input type="text" id="sim-alert" placeholder="e.g. Minor delays near Lot 2 drop-off" data-i18n-placeholder="simAlertPlaceholder" maxlength="150"/>
+          </div>
+          <div class="sim-full">
+            <label for="sim-key" data-i18n="simKeyLabel">Operations API Key</label>
+            <input type="password" id="sim-key" placeholder="Enter OPS_API_KEY" data-i18n-placeholder="simKeyPlaceholder" required />
+          </div>
+          <div class="sim-full">
+            <button type="submit" id="sim-apply-btn" class="cta-btn" data-i18n="simApply">Apply Overrides</button>
+          </div>
+        </form>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- Floating mic button -->
+  <button class="floating-mic" id="floating-mic-btn" aria-label="Voice input" title="Voice assistant" data-i18n-aria-label="voiceInput" data-i18n-title="voiceAssistant">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+      <rect x="9" y="2" width="6" height="11" rx="3"/>
+      <path d="M5 10c0 3.87 3.13 7 7 7s7-3.13 7-7"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+      <line x1="8" y1="22" x2="16" y2="22"/>
+    </svg>
+  </button>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
