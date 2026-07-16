@@ -117,6 +117,17 @@ export function computeQueuePredictions(status) {
  *   queue: ReturnType<computeQueuePredictions>,
  * }}
  */
+export function setElementClass(el, className) {
+  if (!el) return;
+  if (typeof el.className === "string") {
+    el.className = className;
+    return;
+  }
+  if (typeof el.setAttribute === "function") {
+    el.setAttribute("class", className);
+  }
+}
+
 export function computeTelemetry(status) {
   const s = status ?? {};
   const gA = s.gate_congestion?.A ?? "Low";

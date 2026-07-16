@@ -17,7 +17,8 @@ import {
   nodeCongestClass,
   computeQueuePredictions,
   computeTelemetry,
-} from "../web/telemetry.js";
+  setElementClass,
+} from "../../web/telemetry.js";
 
 // ── Fixture ────────────────────────────────────────────────────────────────────
 
@@ -62,6 +63,20 @@ describe("nodeCongestClass", () => {
   it("returns 'high-congest' for High",   () => expect(nodeCongestClass("High")).toBe("high-congest"));
   it("returns 'med-congest' for Medium",  () => expect(nodeCongestClass("Medium")).toBe("med-congest"));
   it("returns 'low-congest' for Low",     () => expect(nodeCongestClass("Low")).toBe("low-congest"));
+});
+
+describe("setElementClass", () => {
+  it("applies classes to HTML elements", () => {
+    const el = { className: "" };
+    setElementClass(el, "metric-value red");
+    expect(el.className).toBe("metric-value red");
+  });
+
+  it("applies classes to SVG-like elements via setAttribute", () => {
+    const el = { setAttribute: (name, value) => { el[name] = value; } };
+    setElementClass(el, "heatmap-glow-circle high");
+    expect(el.class).toBe("heatmap-glow-circle high");
+  });
 });
 
 // ── computeQueuePredictions ───────────────────────────────────────────────────

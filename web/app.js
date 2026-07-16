@@ -656,6 +656,17 @@
   }
 
   /* ─── Telemetry Rendering ─── */
+  function setElementClass(el, className) {
+    if (!el) return;
+    if (typeof el.className === "string") {
+      el.className = className;
+      return;
+    }
+    if (typeof el.setAttribute === "function") {
+      el.setAttribute("class", className);
+    }
+  }
+
   function badgeClass(level) {
     if (level === "High" || level === "Offline" || level === "Major Delays" || level === "Full") return "red";
     if (level === "Medium" || level === "Minor Delays" || level === "Near Capacity" || level === "Busy") return "yellow";
@@ -684,37 +695,37 @@
     const tr = s.transit_status || "On Time";
     const sr = s.sensory_room_occupancy || "Open";
 
-    const statGateA = $("stat-gateA"); if (statGateA) { statGateA.textContent = gA.toUpperCase(); statGateA.className = `metric-value ${gA==="High"?"red-text":gA==="Medium"?"amber":"teal"}`; }
-    const statGateB = $("stat-gateB"); if (statGateB) { statGateB.textContent = gB.toUpperCase(); statGateB.className = `metric-value ${gB==="High"?"red-text":gB==="Medium"?"amber":"teal"}`; }
-    const statTransit = $("stat-transit"); if (statTransit) { statTransit.textContent = tr.toUpperCase(); statTransit.className = `metric-value ${tr.includes("Major")?"red-text":tr.includes("Minor")?"amber":"teal"}`; }
-    const statSensory = $("stat-sensory"); if (statSensory) { statSensory.textContent = sr.toUpperCase(); statSensory.className = `metric-value ${sr==="Full"?"red-text":sr==="Near Capacity"?"amber":"teal"}`; }
+    const statGateA = $("stat-gateA"); if (statGateA) { statGateA.textContent = gA.toUpperCase(); setElementClass(statGateA, `metric-value ${gA==="High"?"red-text":gA==="Medium"?"amber":"teal"}`); }
+    const statGateB = $("stat-gateB"); if (statGateB) { statGateB.textContent = gB.toUpperCase(); setElementClass(statGateB, `metric-value ${gB==="High"?"red-text":gB==="Medium"?"amber":"teal"}`); }
+    const statTransit = $("stat-transit"); if (statTransit) { statTransit.textContent = tr.toUpperCase(); setElementClass(statTransit, `metric-value ${tr.includes("Major")?"red-text":tr.includes("Minor")?"amber":"teal"}`); }
+    const statSensory = $("stat-sensory"); if (statSensory) { statSensory.textContent = sr.toUpperCase(); setElementClass(statSensory, `metric-value ${sr==="Full"?"red-text":sr==="Near Capacity"?"amber":"teal"}`); }
 
     // Update legend
-    const legA = $("leg-gateA"); if (legA) { legA.textContent = gA; legA.className = `cong-val ${gA==="High"?"red-text":gA==="Medium"?"amber-text":"teal-text"}`; }
-    const legB = $("leg-gateB"); if (legB) { legB.textContent = gB; legB.className = `cong-val ${gB==="High"?"red-text":gB==="Medium"?"amber-text":"teal-text"}`; }
-    const legTr = $("leg-transit"); if (legTr) { legTr.textContent = tr; legTr.className = `cong-val ${tr.includes("Major")?"red-text":tr.includes("Minor")?"amber-text":"teal-text"}`; }
+    const legA = $("leg-gateA"); if (legA) { legA.textContent = gA; setElementClass(legA, `cong-val ${gA==="High"?"red-text":gA==="Medium"?"amber-text":"teal-text"}`); }
+    const legB = $("leg-gateB"); if (legB) { legB.textContent = gB; setElementClass(legB, `cong-val ${gB==="High"?"red-text":gB==="Medium"?"amber-text":"teal-text"}`); }
+    const legTr = $("leg-transit"); if (legTr) { legTr.textContent = tr; setElementClass(legTr, `cong-val ${tr.includes("Major")?"red-text":tr.includes("Minor")?"amber-text":"teal-text"}`); }
 
     // Queue widget
     const qWc = $("q-wc"); const qWcTime = $("q-wc-time");
     const qCon = $("q-con"); const qConTime = $("q-con-time");
     if (qWc) {
-      if (gA==="High"||gB==="High") { qWc.style.width="80%"; if(qWcTime) qWcTime.textContent="~15 min"; qWc.className="queue-bar-fill amber-fill"; }
-      else if (gA==="Medium"||gB==="Medium") { qWc.style.width="40%"; if(qWcTime) qWcTime.textContent="~8 min"; qWc.className="queue-bar-fill"; }
-      else { qWc.style.width="15%"; if(qWcTime) qWcTime.textContent="~3 min"; qWc.className="queue-bar-fill"; }
+      if (gA==="High"||gB==="High") { qWc.style.width="80%"; if(qWcTime) qWcTime.textContent="~15 min"; setElementClass(qWc,"queue-bar-fill amber-fill"); }
+      else if (gA==="Medium"||gB==="Medium") { qWc.style.width="40%"; if(qWcTime) qWcTime.textContent="~8 min"; setElementClass(qWc,"queue-bar-fill"); }
+      else { qWc.style.width="15%"; if(qWcTime) qWcTime.textContent="~3 min"; setElementClass(qWc,"queue-bar-fill"); }
     }
     if (qCon) {
-      if (gA==="High"&&gB==="High") { qCon.style.width="90%"; if(qConTime) qConTime.textContent="~20 min"; qCon.className="queue-bar-fill amber-fill"; }
-      else if (gA==="Medium"||gB==="Medium") { qCon.style.width="55%"; if(qConTime) qConTime.textContent="~12 min"; qCon.className="queue-bar-fill amber-fill"; }
-      else { qCon.style.width="20%"; if(qConTime) qConTime.textContent="~4 min"; qCon.className="queue-bar-fill"; }
+      if (gA==="High"&&gB==="High") { qCon.style.width="90%"; if(qConTime) qConTime.textContent="~20 min"; setElementClass(qCon,"queue-bar-fill amber-fill"); }
+      else if (gA==="Medium"||gB==="Medium") { qCon.style.width="55%"; if(qConTime) qConTime.textContent="~12 min"; setElementClass(qCon,"queue-bar-fill amber-fill"); }
+      else { qCon.style.width="20%"; if(qConTime) qConTime.textContent="~4 min"; setElementClass(qCon,"queue-bar-fill"); }
     }
 
 
     gates.forEach(g => {
       const cl = s.gate_congestion[g] || "Low";
       const b = $(`tel-gate${g}-congest`);
-      if (b) { b.textContent = cl; b.className = `badge ${badgeClass(cl)}`; }
+      if (b) { b.textContent = cl; setElementClass(b, `badge ${badgeClass(cl)}`); }
       const d = $(`map-dot-gate${g}`);
-      if (d) d.className = `dot ${badgeClass(cl)}`;
+      if (d) setElementClass(d, `dot ${badgeClass(cl)}`);
 
       // Heatmap circle updates
       const hCircle = $(`heatmap-circle-gate${g}`);
@@ -729,20 +740,20 @@
     gates.forEach(g => {
       const st = s.elevator_status[g] || "Online";
       const b = $(`tel-gate${g}-elev`);
-      if (b) { b.textContent = st; b.className = `badge ${badgeClass(st)}`; }
+      if (b) { b.textContent = st; setElementClass(b, `badge ${badgeClass(st)}`); }
       const node = $(`map-node-gate${g}`);
       if (node) node.classList.toggle("warning", st === "Offline");
     });
 
     // Transit
     const trEl = $("tel-transit-summary");
-    if (trEl) { trEl.textContent = tr; trEl.className = `tel-big ${badgeClass(tr)}-text`; }
+    if (trEl) { trEl.textContent = tr; setElementClass(trEl, `tel-big ${badgeClass(tr)}-text`); }
     const trDot = $("map-dot-transit");
-    if (trDot) trDot.className = `dot ${badgeClass(tr)}`;
+    if (trDot) setElementClass(trDot, `dot ${badgeClass(tr)}`);
     const trTxt = $("map-text-transit");
     if (trTxt) {
       trTxt.textContent = tr;
-      trTxt.className = `node-value ${badgeClass(tr) === "green" ? "ok" : badgeClass(tr) === "yellow" ? "warn" : "bad"}`;
+      setElementClass(trTxt, `node-value ${badgeClass(tr) === "green" ? "ok" : badgeClass(tr) === "yellow" ? "warn" : "bad"}`);
     }
 
     const trH = $(`heatmap-circle-transit`);
@@ -758,7 +769,7 @@
 
     // Sensory
     const srEl = $("tel-sensory-summary");
-    if (srEl) { srEl.textContent = sr; srEl.className = `tel-big ${badgeClass(sr)}-text`; }
+    if (srEl) { srEl.textContent = sr; setElementClass(srEl, `tel-big ${badgeClass(sr)}-text`); }
 
     const srH = $(`heatmap-circle-sec112`);
     if (srH) {
@@ -792,15 +803,15 @@
       if (restLevel === "High") {
         qRestVal.textContent = "12 mins";
         qRestFill.style.width = "85%";
-        qRestFill.className = "queue-status-fill red";
+        setElementClass(qRestFill, "queue-status-fill red");
       } else if (restLevel === "Medium") {
         qRestVal.textContent = "6 mins";
         qRestFill.style.width = "45%";
-        qRestFill.className = "queue-status-fill yellow";
+        setElementClass(qRestFill, "queue-status-fill yellow");
       } else {
         qRestVal.textContent = "2 mins";
         qRestFill.style.width = "15%";
-        qRestFill.className = "queue-status-fill green";
+        setElementClass(qRestFill, "queue-status-fill green");
       }
     }
 
@@ -810,15 +821,15 @@
       if (sr === "Full") {
         qSensVal.textContent = "Full (20+m)";
         qSensFill.style.width = "95%";
-        qSensFill.className = "queue-status-fill red";
+        setElementClass(qSensFill, "queue-status-fill red");
       } else if (sr === "Near Capacity") {
         qSensVal.textContent = "Near Cap (8m)";
         qSensFill.style.width = "65%";
-        qSensFill.className = "queue-status-fill yellow";
+        setElementClass(qSensFill, "queue-status-fill yellow");
       } else {
         qSensVal.textContent = "No Wait";
         qSensFill.style.width = "10%";
-        qSensFill.className = "queue-status-fill green";
+        setElementClass(qSensFill, "queue-status-fill green");
       }
     }
 
@@ -830,15 +841,15 @@
       if (busyCount >= 6) {
         qConVal.textContent = "18 mins";
         qConFill.style.width = "90%";
-        qConFill.className = "queue-status-fill red";
+        setElementClass(qConFill, "queue-status-fill red");
       } else if (busyCount >= 3) {
         qConVal.textContent = "9 mins";
         qConFill.style.width = "50%";
-        qConFill.className = "queue-status-fill yellow";
+        setElementClass(qConFill, "queue-status-fill yellow");
       } else {
         qConVal.textContent = "3 mins";
         qConFill.style.width = "20%";
-        qConFill.className = "queue-status-fill green";
+        setElementClass(qConFill, "queue-status-fill green");
       }
     }
 
