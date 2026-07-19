@@ -3,6 +3,189 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Cup Assist – Soft UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Soft UI / Glassmorphism styles */
+    html, body {margin:0;padding:0;height:100%;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#1e1e2f 0%,#27293d 100%);color:#e0e0e0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .glass-card{background:rgba(255,255,255,0.12);border-radius:16px;box-shadow:0 4px 30px rgba(0,0,0,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);padding:1.5rem;transition:transform 0.2s ease,box-shadow 0.2s ease;}
+    .glass-card:hover{transform:translateY(-2px);box-shadow:0 6px 40px rgba(0,0,0,0.6);}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10;}
+    nav .logo{font-size:1.5rem;font-weight:800;color:#22d3ee;}
+    nav a{color:#fff;text-decoration:none;font-weight:500;transition:color 0.3s;}
+    nav a:hover{color:#8b5cf6;}
+    .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:60vh;padding:2rem;}
+    .hero h1{font-size:3rem;margin-bottom:0.5rem;}
+    .hero p{font-size:1.2rem;max-width:600px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+    .card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(12px);box-shadow:0 4px 30px rgba(0,0,0,0.5);transition:transform 0.2s,background 0.2s;}
+    .card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.12);}
+    .card h3{margin-top:0;color:#22d3ee;}
+    footer{ text-align:center;padding:2rem;font-size:0.9rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);}
+    @media (max-width:600px){.hero h1{font-size:2.2rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">World Cup Assist</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#matches">Matches</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Live Cricket Insights</h1>
+    <p>Get real‑time match updates, player stats, and predictions – all wrapped in a sleek, glass‑morphism interface.</p>
+  </section>
+
+  <section id="matches" class="grid">
+    <div class="card glass-card">
+      <h3>Match 1</h3>
+      <p>Team A vs Team B – 12th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 2</h3>
+      <p>Team C vs Team D – 15th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 3</h3>
+      <p>Team E vs Team F – 18th July 2026</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 World Cup Assist – Powered by AI
+  </footer>
+</body>
+</html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Cup Assist – Soft UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Soft UI / Glassmorphism styles */
+    html, body {margin:0;padding:0;height:100%;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#1e1e2f 0%,#27293d 100%);color:#e0e0e0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .glass-card{background:rgba(255,255,255,0.12);border-radius:16px;box-shadow:0 4px 30px rgba(0,0,0,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);padding:1.5rem;transition:transform 0.2s ease,box-shadow 0.2s ease;}
+    .glass-card:hover{transform:translateY(-2px);box-shadow:0 6px 40px rgba(0,0,0,0.6);}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10;}
+    nav .logo{font-size:1.5rem;font-weight:800;color:#22d3ee;}
+    nav a{color:#fff;text-decoration:none;font-weight:500;transition:color 0.3s;}
+    nav a:hover{color:#8b5cf6;}
+    .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:60vh;padding:2rem;}
+    .hero h1{font-size:3rem;margin-bottom:0.5rem;}
+    .hero p{font-size:1.2rem;max-width:600px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+    .card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(12px);box-shadow:0 4px 30px rgba(0,0,0,0.5);transition:transform 0.2s,background 0.2s;}
+    .card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.12);}
+    .card h3{margin-top:0;color:#22d3ee;}
+    footer{ text-align:center;padding:2rem;font-size:0.9rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);}
+    @media (max-width:600px){.hero h1{font-size:2.2rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">World Cup Assist</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#matches">Matches</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Live Cricket Insights</h1>
+    <p>Get real‑time match updates, player stats, and predictions – all wrapped in a sleek, glass‑morphism interface.</p>
+  </section>
+
+  <section id="matches" class="grid">
+    <div class="card glass-card">
+      <h3>Match 1</h3>
+      <p>Team A vs Team B – 12th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 2</h3>
+      <p>Team C vs Team D – 15th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 3</h3>
+      <p>Team E vs Team F – 18th July 2026</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 World Cup Assist – Powered by AI
+  </footer>
+</body>
+</html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Cup Assist – Soft UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+/* Soft UI / Glassmorphism styles */
+html, body {margin:0;padding:0;height:100%;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#1e1e2f 0%,#27293d 100%);color:#e0e0e0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.glass-card{background:rgba(255,255,255,0.12);border-radius:16px;box-shadow:0 4px 30px rgba(0,0,0,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);padding:1.5rem;transition:transform 0.2s ease,box-shadow 0.2s ease;}
+.glass-card:hover{transform:translateY(-2px);box-shadow:0 6px 40px rgba(0,0,0,0.6);}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10;}
+nav .logo{font-size:1.5rem;font-weight:800;color:#22d3ee;}
+nav a{color:#fff;text-decoration:none;font-weight:500;transition:color 0.3s;}
+nav a:hover{color:#8b5cf6;}
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:60vh;padding:2rem;}
+.hero h1{font-size:3rem;margin-bottom:0.5rem;}
+.hero p{font-size:1.2rem;max-width:600px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.12);border-radius:1rem;padding:1.5rem;backdrop-filter:blur(12px);box-shadow:0 4px 30px rgba(0,0,0,0.5);transition:transform 0.2s,background 0.2s;}
+.card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.12);}
+.card h3{margin-top:0;color:#22d3ee;}
+footer{ text-align:center;padding:2rem;font-size:0.9rem;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);}
+@media (max-width:600px){.hero h1{font-size:2.2rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">World Cup Assist</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#matches">Matches</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Live Cricket Insights</h1>
+    <p>Get real‑time match updates, player stats, and predictions – all wrapped in a sleek, glass‑morphism interface.</p>
+  </section>
+
+  <section id="matches" class="grid">
+    <div class="card glass-card">
+      <h3>Match 1</h3>
+      <p>Team A vs Team B – 12th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 2</h3>
+      <p>Team C vs Team D – 15th July 2026</p>
+    </div>
+    <div class="card glass-card">
+      <h3>Match 3</h3>
+      <p>Team E vs Team F – 18th July 2026</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 World Cup Assist – Powered by AI
+  </footer>
+</body>
+</html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="AI-powered accessible navigation and operations assistant for FIFA World Cup 2026 venues. Multilingual, context-aware guidance for fans, staff, and volunteers." />
   <title>FIFA World Cup 2026 — Fan Assistant & Operations Portal</title>
   <link rel="stylesheet" href="/static/style.css" />
