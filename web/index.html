@@ -6,6 +6,7 @@
   <meta name="description" content="AI-powered accessible navigation and operations assistant for FIFA World Cup 2026 venues. Multilingual, context-aware guidance for fans, staff, and volunteers." />
   <title>FIFA World Cup 2026 — Fan Assistant & Operations Portal</title>
   <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -172,6 +173,15 @@
           </div>
         </div>
       </section>
+        
+        <!-- Match Statistics Graph -->
+        <section class="glass-card match-stats-graph-card" aria-labelledby="match-stats-graph-heading">
+          <div class="card-head-row">
+            <h2 id="match-stats-graph-heading" class="card-label" data-i18n="matchStatsGraph">Match Statistics</h2>
+            <span class="card-more">···</span>
+          </div>
+          <canvas id="matchStatsChart"></canvas>
+        </section>
 
       <!-- ══ LIVE VENUE MAP ══ -->
       <section class="glass-card map-card" aria-labelledby="venue-map-heading">

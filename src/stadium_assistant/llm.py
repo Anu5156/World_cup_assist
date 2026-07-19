@@ -233,19 +233,31 @@ class GeminiEngine:
         self._settings = settings
         self._logger = logging.getLogger(__name__)
 
-    def _handle_error(self, exc: Exception) -> str:
+    def _handle_error(
+        self,
+        exc: Exception,
+        system_prompt: str,
+        user_prompt: str,
+        language: str,
+    ) -> str:
         """Log the error and fallback to offline engine.
 
         Returns the offline generated response using the same prompts.
         """
+        key = self._settings.gemini_api_key
+        if key and key.startswith("sk-"):
+            self._logger.warning(
+                "GEMINI_API_KEY starts with 'sk-', which looks like an OpenAI or Anthropic key. "
+                "A valid Gemini API key must start with 'AIzaSy'."
+            )
         self._logger.error("Gemini API error: %s. Falling back to offline engine.", exc)
         # Use OfflineEngine directly for fallback
         offline = OfflineEngine()
-        return offline.generate("", "", "en")  # placeholder prompts; actual prompts will be passed by caller
+        return offline.generate(system_prompt, user_prompt, language)
 
     def generate(self, system_prompt: str, user_prompt: str, language: str) -> str:
         if not self._settings.gemini_api_key:
-            return self._handle_error(ValueError("Gemini API key is missing"))
+            return self._handle_error(ValueError("Gemini API key is missing"), system_prompt, user_prompt, language)
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:generateContent?key={self._settings.gemini_api_key}"
         payload = {
             "contents": [{"parts": [{"text": user_prompt}]}],
@@ -260,13 +272,13 @@ class GeminiEngine:
                 data = response.json()
             return data["candidates"][0]["content"]["parts"][0]["text"]
         except Exception as exc:
-            return self._handle_error(exc)
+            return self._handle_error(exc, system_prompt, user_prompt, language)
 
     def generate_stream(
         self, system_prompt: str, user_prompt: str, language: str
     ) -> Iterator[str]:
         if not self._settings.gemini_api_key:
-            yield self._handle_error(ValueError("Gemini API key is missing"))
+            yield self._handle_error(ValueError("Gemini API key is missing"), system_prompt, user_prompt, language)
             return
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:streamGenerateContent?key={self._settings.gemini_api_key}&alt=sse"
         payload = {
@@ -294,7 +306,7 @@ class GeminiEngine:
                                 pass
         except Exception as exc:
             # Fallback to offline single response
-            fallback = self._handle_error(exc)
+            fallback = self._handle_error(exc, system_prompt, user_prompt, language)
             yield fallback
 
 

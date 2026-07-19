@@ -10,6 +10,12 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
+# Load environment variables from .env if present
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 
 def _get_int(name: str, default: int) -> int:

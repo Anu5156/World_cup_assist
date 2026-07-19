@@ -13,6 +13,7 @@ from stadium_assistant.config import Settings
 @pytest.fixture(autouse=True)
 def mock_settings() -> None:
     """Mock application settings for all tests to use standard test values."""
+    from stadium_assistant.assistant import Assistant
     app_mod.settings = Settings(
         ops_api_key="testkey",
         allowed_origins="http://localhost:8000,http://127.0.0.1:8000",
@@ -21,3 +22,5 @@ def mock_settings() -> None:
         gemini_api_key="",
         anthropic_api_key="",
     )
+    app_mod.assistant = Assistant(app_mod.settings)
+
