@@ -53,11 +53,15 @@ _ALL_CASES = _load_cases()
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _build_assistant(live: bool) -> Assistant:
-    """Return an Assistant backed by the offline engine (or Anthropic if live)."""
-    if live and os.getenv("ANTHROPIC_API_KEY"):
-        settings = Settings()  # picks up real key from env
-        return Assistant(settings, engine=AnthropicEngine(settings))
-    return Assistant(settings=Settings(anthropic_api_key=""), engine=OfflineEngine())
+    """Return an Assistant backed by the offline engine (or Anthropic/Gemini if live)."""
+    if live:
+        settings = Settings()  # picks up real keys from env
+        if settings.llm_provider == "gemini" and settings.gemini_api_key:
+            from stadium_assistant.llm import GeminiEngine
+            return Assistant(settings, engine=GeminiEngine(settings))
+        elif settings.llm_provider == "anthropic" and settings.anthropic_api_key:
+            return Assistant(settings, engine=AnthropicEngine(settings))
+    return Assistant(settings=Settings(anthropic_api_key="", gemini_api_key=""), engine=OfflineEngine())
 
 
 def _make_context(case: dict[str, Any]) -> UserContext:
@@ -79,8 +83,8 @@ def test_eval(case: dict[str, Any], request: pytest.FixtureRequest) -> None:
     if case.get("live_only"):
         if not live:
             pytest.skip("live_only: pass --live to run against the real API")
-        if not os.getenv("ANTHROPIC_API_KEY"):
-            pytest.skip("live_only: ANTHROPIC_API_KEY not set")
+        if not (os.getenv("ANTHROPIC_API_KEY") or os.getenv("GEMINI_API_KEY")):
+            pytest.skip("live_only: ANTHROPIC_API_KEY or GEMINI_API_KEY not set")
 
     assistant = _build_assistant(live=case.get("live_only", False) and live)
     ctx = _make_context(case)

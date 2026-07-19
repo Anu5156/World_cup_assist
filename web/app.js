@@ -319,14 +319,73 @@
     floatingMicBtn.addEventListener("click", () => micBtn.click());
   }
 
-  /* ─── Settings Button (Simulator Toggle) ─── */
-  const navSettings = $("nav-settings");
-  if (navSettings) {
-    navSettings.addEventListener("click", () => {
-      const panel = $("simulator-panel");
-      if (panel) panel.hidden = !panel.hidden;
+  /* ─── Navigation and View Switching ─── */
+  const gridEl = $("main-content");
+  const navButtons = $$(".sidebar-nav .nav-icon, .header-nav .h-nav-link");
+
+  function setView(viewName) {
+    gridEl.classList.remove("view-dashboard", "view-stats", "view-map", "view-chat");
+    if (viewName !== "settings" && viewName !== "alerts" && viewName !== "events") {
+      gridEl.classList.add(`view-${viewName}`);
+    }
+
+    navButtons.forEach(btn => {
+      const btnView = btn.dataset.view || (btn.id ? btn.id.replace("nav-", "") : "");
+      if (btnView === viewName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
     });
+
+    if (viewName !== "dashboard" && viewName !== "settings" && viewName !== "alerts" && viewName !== "events") {
+      let targetClass = "";
+      if (viewName === "stats") targetClass = "match-stats-card";
+      else if (viewName === "map") targetClass = "map-card";
+      else if (viewName === "chat") targetClass = "chat-card";
+
+      const card = $$("." + targetClass)[0];
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth" });
+        card.style.transition = "border-color 0.3s ease, box-shadow 0.3s ease";
+        card.style.borderColor = "var(--teal)";
+        card.style.boxShadow = "0 0 15px rgba(34, 211, 238, 0.4)";
+        setTimeout(() => {
+          card.style.borderColor = "";
+          card.style.boxShadow = "";
+        }, 1500);
+      }
+    }
   }
+
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const view = btn.dataset.view || (btn.id ? btn.id.replace("nav-", "") : "");
+      if (view === "settings") {
+        const panel = $("simulator-panel");
+        if (panel) {
+          panel.hidden = !panel.hidden;
+          if (!panel.hidden) {
+            panel.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+        return;
+      }
+      if (view === "alerts" || view === "events") {
+        const alertBox = $("active-alert-box");
+        if (alertBox && !alertBox.hidden) {
+          alertBox.scrollIntoView({ behavior: "smooth" });
+          alertBox.style.outline = "2px solid #ef4444";
+          setTimeout(() => { alertBox.style.outline = "none"; }, 2000);
+        } else {
+          toast("No active emergency alerts at this time.", "success");
+        }
+        return;
+      }
+      setView(view);
+    });
+  });
 
   /* ─── Accessibility Panel Handlers ─── */
   if (accDyslexiaBtn) {
@@ -968,7 +1027,7 @@
       const dot = $("llm-dot"), txt = $("llm-status-text");
       if (!data || data.status !== "ok") return;
       if (data.llm_online) {
-        txt.textContent = "AI Online (Claude)";
+        txt.textContent = "AI Online (Gemini)";
         dot.className = "pulse-dot online";
       } else {
         txt.textContent = "Offline Guide";

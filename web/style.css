@@ -752,3 +752,44 @@ body.reduced-motion .ambient-orb {
   .map-body { flex-direction: column; }
   .map-legend { width: 100%; }
 }
+
+/* ─── View Modes Switching ─── */
+@media (min-width: 901px) {
+  .main-grid.view-stats {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "stats";
+  }
+  .main-grid.view-stats .map-card,
+  .main-grid.view-stats .chat-card {
+    display: none !important;
+  }
+
+  .main-grid.view-map {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "map";
+  }
+  .main-grid.view-map .match-stats-card,
+  .main-grid.view-map .chat-card {
+    display: none !important;
+  }
+
+  .main-grid.view-chat {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "chat";
+  }
+  .main-grid.view-chat .match-stats-card,
+  .main-grid.view-chat .map-card {
+    display: none !important;
+  }
+}
+
+/* Explicit style for dropdown options to avoid browser dark-theme text color issues */
+.language-selector-wrapper select option,
+.pf-select option,
+.sim-row select option {
+  background: #0d1527;
+  color: var(--text-primary);
+}

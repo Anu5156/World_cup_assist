@@ -27,12 +27,13 @@ def _get_int(name: str, default: int) -> int:
 class Settings:
     """Immutable runtime settings resolved once at startup."""
 
-    # LLM provider. "anthropic" uses the cloud API when a key is set;
+    # LLM provider. "gemini" or "anthropic" uses the cloud API when a key is set;
     # otherwise the deterministic offline engine is always used.
-    llm_provider: str = field(default_factory=lambda: os.getenv("LLM_PROVIDER", "anthropic"))
+    llm_provider: str = field(default_factory=lambda: os.getenv("LLM_PROVIDER", "gemini"))
     llm_model: str = field(
-        default_factory=lambda: os.getenv("LLM_MODEL", "claude-3-5-sonnet-20241022")
+        default_factory=lambda: os.getenv("LLM_MODEL", "gemini-1.5-flash")
     )
+    gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
     anthropic_api_key: str = field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY", ""))
     llm_timeout_seconds: int = field(
         default_factory=lambda: _get_int("LLM_TIMEOUT_SECONDS", 20)
@@ -59,7 +60,11 @@ class Settings:
     @property
     def llm_online(self) -> bool:
         """True only when a real cloud call can be made."""
-        return self.llm_provider == "anthropic" and bool(self.anthropic_api_key)
+        if self.llm_provider == "gemini":
+            return bool(self.gemini_api_key)
+        elif self.llm_provider == "anthropic":
+            return bool(self.anthropic_api_key)
+        return False
 
 
 def get_settings() -> Settings:

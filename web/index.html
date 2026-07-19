@@ -36,31 +36,31 @@
       </svg>
     </div>
     <nav class="sidebar-nav">
-      <button class="nav-icon active" id="nav-dashboard" title="Dashboard" aria-label="Dashboard">
+      <button class="nav-icon active" id="nav-dashboard" data-view="dashboard" title="Dashboard" aria-label="Dashboard">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
           <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
         </svg>
       </button>
-      <button class="nav-icon" id="nav-map" title="Venue Map" aria-label="Venue Map">
+      <button class="nav-icon" id="nav-map" data-view="map" title="Venue Map" aria-label="Venue Map">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
           <line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
         </svg>
       </button>
-      <button class="nav-icon" id="nav-stats" title="Live Stats" aria-label="Live Stats">
+      <button class="nav-icon" id="nav-stats" data-view="stats" title="Live Stats" aria-label="Live Stats">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
           <line x1="6" y1="20" x2="6" y2="14"/>
         </svg>
       </button>
-      <button class="nav-icon" id="nav-alerts" title="Alerts" aria-label="Alerts">
+      <button class="nav-icon" id="nav-alerts" data-view="alerts" title="Alerts" aria-label="Alerts">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
         </svg>
       </button>
-      <button class="nav-icon" id="nav-settings" title="Settings" aria-label="Settings">
+      <button class="nav-icon" id="nav-settings" data-view="settings" title="Settings" aria-label="Settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -87,11 +87,11 @@
       <div class="header-left">
         <h1 class="header-brand" id="main-heading" data-i18n="title">⚽ StadiumAI</h1>
         <nav class="header-nav" aria-label="Page navigation">
-          <a class="h-nav-link active" href="#" data-i18n="headerDashboard">Dashboard</a>
-          <a class="h-nav-link" href="#" data-i18n="headerMatchStats">Match Stats</a>
-          <a class="h-nav-link" href="#" data-i18n="headerVenueMap">Venue Map</a>
-          <a class="h-nav-link" href="#" data-i18n="headerAssistant">Assistant</a>
-          <a class="h-nav-link" href="#" data-i18n="headerEvents">Events</a>
+          <a class="h-nav-link active" href="#" data-view="dashboard" data-i18n="headerDashboard">Dashboard</a>
+          <a class="h-nav-link" href="#" data-view="stats" data-i18n="headerMatchStats">Match Stats</a>
+          <a class="h-nav-link" href="#" data-view="map" data-i18n="headerVenueMap">Venue Map</a>
+          <a class="h-nav-link" href="#" data-view="chat" data-i18n="headerAssistant">Assistant</a>
+          <a class="h-nav-link" href="#" data-view="events" data-i18n="headerEvents">Events</a>
         </nav>
       </div>
       <div class="header-right">
@@ -528,22 +528,22 @@
         <form id="simulator-form" class="sim-grid">
           <div class="sim-col">
             <h4 data-i18n="simGateCrowdFlow">Gate Crowd Flow</h4>
-            <div class="sim-row"><label for="sim-gateA">Gate A</label><select id="sim-gateA"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
-            <div class="sim-row"><label for="sim-gateB">Gate B</label><select id="sim-gateB"><option data-i18n="flowLow">Low</option><option selected data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
-            <div class="sim-row"><label for="sim-gateC">Gate C</label><select id="sim-gateC"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
-            <div class="sim-row"><label for="sim-gateD">Gate D</label><select id="sim-gateD"><option data-i18n="flowLow">Low</option><option data-i18n="flowMedium">Medium</option><option data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateA">Gate A</label><select id="sim-gateA"><option value="Low" data-i18n="flowLow">Low</option><option value="Medium" data-i18n="flowMedium">Medium</option><option value="High" data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateB">Gate B</label><select id="sim-gateB"><option value="Low" data-i18n="flowLow">Low</option><option value="Medium" selected data-i18n="flowMedium">Medium</option><option value="High" data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateC">Gate C</label><select id="sim-gateC"><option value="Low" data-i18n="flowLow">Low</option><option value="Medium" data-i18n="flowMedium">Medium</option><option value="High" data-i18n="flowHigh">High</option></select></div>
+            <div class="sim-row"><label for="sim-gateD">Gate D</label><select id="sim-gateD"><option value="Low" data-i18n="flowLow">Low</option><option value="Medium" data-i18n="flowMedium">Medium</option><option value="High" data-i18n="flowHigh">High</option></select></div>
           </div>
           <div class="sim-col">
             <h4 data-i18n="simElevators">Elevators</h4>
-            <div class="sim-row"><label for="sim-elevA">Gate A</label><select id="sim-elevA"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
-            <div class="sim-row"><label for="sim-elevB">Gate B</label><select id="sim-elevB"><option data-i18n="elevOnline">Online</option><option selected data-i18n="elevOffline">Offline</option></select></div>
-            <div class="sim-row"><label for="sim-elevC">Gate C</label><select id="sim-elevC"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
-            <div class="sim-row"><label for="sim-elevD">Gate D</label><select id="sim-elevD"><option data-i18n="elevOnline">Online</option><option data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevA">Gate A</label><select id="sim-elevA"><option value="Online" data-i18n="elevOnline">Online</option><option value="Offline" data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevB">Gate B</label><select id="sim-elevB"><option value="Online" data-i18n="elevOnline">Online</option><option value="Offline" selected data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevC">Gate C</label><select id="sim-elevC"><option value="Online" data-i18n="elevOnline">Online</option><option value="Offline" data-i18n="elevOffline">Offline</option></select></div>
+            <div class="sim-row"><label for="sim-elevD">Gate D</label><select id="sim-elevD"><option value="Online" data-i18n="elevOnline">Online</option><option value="Offline" data-i18n="elevOffline">Offline</option></select></div>
           </div>
           <div class="sim-col">
             <h4 data-i18n="simVenue">Venue</h4>
-            <div class="sim-row"><label for="sim-transit" data-i18n="simTransit">Transit</label><select id="sim-transit"><option data-i18n="transitOnTime">On Time</option><option selected data-i18n="transitMinorDelays">Minor Delays</option><option data-i18n="transitMajorDelays">Major Delays</option></select></div>
-            <div class="sim-row"><label for="sim-sensory" data-i18n="sensoryRoom">Sensory Room</label><select id="sim-sensory"><option data-i18n="sensoryOpen">Open</option><option data-i18n="sensoryNearCapacity">Near Capacity</option><option data-i18n="sensoryFull">Full</option></select></div>
+            <div class="sim-row"><label for="sim-transit" data-i18n="simTransit">Transit</label><select id="sim-transit"><option value="On Time" data-i18n="transitOnTime">On Time</option><option value="Minor Delays" selected data-i18n="transitMinorDelays">Minor Delays</option><option value="Major Delays" data-i18n="transitMajorDelays">Major Delays</option></select></div>
+            <div class="sim-row"><label for="sim-sensory" data-i18n="sensoryRoom">Sensory Room</label><select id="sim-sensory"><option value="Open" data-i18n="sensoryOpen">Open</option><option value="Near Capacity" data-i18n="sensoryNearCapacity">Near Capacity</option><option value="Full" data-i18n="sensoryFull">Full</option></select></div>
           </div>
           <div class="sim-full">
             <label for="sim-alert" data-i18n="simAlertLabel">Alert message (optional)</label>

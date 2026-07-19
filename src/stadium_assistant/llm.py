@@ -223,6 +223,76 @@ class AnthropicEngine:
                                 pass
 
 
+class GeminiEngine:
+    """Cloud engine backed by the Gemini generateContent API (via httpx)."""
+
+    def __init__(self, settings: Settings) -> None:
+        self._settings = settings
+
+    def generate(self, system_prompt: str, user_prompt: str, language: str) -> str:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:generateContent?key={self._settings.gemini_api_key}"
+        payload = {
+            "contents": [
+                {
+                    "parts": [{"text": user_prompt}]
+                }
+            ],
+            "systemInstruction": {
+                "parts": [{"text": system_prompt}]
+            },
+            "generationConfig": {
+                "maxOutputTokens": 600,
+                "temperature": 0.2
+            }
+        }
+        headers = {"content-type": "application/json"}
+        with httpx.Client(timeout=self._settings.llm_timeout_seconds) as client:
+            response = client.post(url, json=payload, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+        
+        try:
+            return data["candidates"][0]["content"]["parts"][0]["text"]
+        except (KeyError, IndexError) as err:
+            raise RuntimeError(f"Unexpected response format from Gemini API: {data}") from err
+
+    def generate_stream(
+        self, system_prompt: str, user_prompt: str, language: str
+    ) -> Iterator[str]:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:streamGenerateContent?key={self._settings.gemini_api_key}&alt=sse"
+        payload = {
+            "contents": [
+                {
+                    "parts": [{"text": user_prompt}]
+                }
+            ],
+            "systemInstruction": {
+                "parts": [{"text": system_prompt}]
+            },
+            "generationConfig": {
+                "maxOutputTokens": 600,
+                "temperature": 0.2
+            }
+        }
+        headers = {"content-type": "application/json"}
+        with httpx.Client(timeout=self._settings.llm_timeout_seconds) as client:
+            with client.stream("POST", url, json=payload, headers=headers) as response:
+                response.raise_for_status()
+                for line in response.iter_lines():
+                    line = line.strip()
+                    if not line:
+                        continue
+                    if line.startswith("data:"):
+                        data_str = line[len("data:"):].strip()
+                        try:
+                            event_data = json.loads(data_str)
+                            text = event_data["candidates"][0]["content"]["parts"][0]["text"]
+                            if text:
+                                yield text
+                        except Exception:
+                            pass
+
+
 def _extract_user_question(user_prompt: str) -> str:
     """Extract the user's question from between <user_question> tags."""
     in_q = False
@@ -255,5 +325,7 @@ def build_engine(settings: Settings) -> LLMEngine:
     so callers never need to branch on credentials.
     """
     if settings.llm_online:
+        if settings.llm_provider == "gemini":
+            return GeminiEngine(settings)
         return AnthropicEngine(settings)
     return OfflineEngine()

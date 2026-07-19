@@ -9,7 +9,7 @@ from stadium_assistant.llm import OfflineEngine
 
 def _offline_assistant() -> Assistant:
     # Force offline by using default settings with no API key.
-    return Assistant(settings=Settings(anthropic_api_key=""), engine=OfflineEngine())
+    return Assistant(settings=Settings(anthropic_api_key="", gemini_api_key=""), engine=OfflineEngine())
 
 
 def test_retrieval_prioritises_mobility_facts():
