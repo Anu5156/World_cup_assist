@@ -244,6 +244,8 @@ class GeminiEngine:
         return offline.generate("", "", "en")  # placeholder prompts; actual prompts will be passed by caller
 
     def generate(self, system_prompt: str, user_prompt: str, language: str) -> str:
+        if not self._settings.gemini_api_key:
+            return self._handle_error(ValueError("Gemini API key is missing"))
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:generateContent?key={self._settings.gemini_api_key}"
         payload = {
             "contents": [{"parts": [{"text": user_prompt}]}],
@@ -263,6 +265,9 @@ class GeminiEngine:
     def generate_stream(
         self, system_prompt: str, user_prompt: str, language: str
     ) -> Iterator[str]:
+        if not self._settings.gemini_api_key:
+            yield self._handle_error(ValueError("Gemini API key is missing"))
+            return
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self._settings.llm_model}:streamGenerateContent?key={self._settings.gemini_api_key}&alt=sse"
         payload = {
             "contents": [{"parts": [{"text": user_prompt}]}],
